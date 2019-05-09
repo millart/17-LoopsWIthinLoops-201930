@@ -4,8 +4,8 @@ in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Emily Millard.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -81,9 +81,41 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # -------------------------------------------------------------------------
+    fill_color = circle.fill_color
+    outline_thickness = circle.outline_thickness
+    outline_color = circle.outline_color
+    radius = circle.radius
+    starting_x = circle.center.x
+    for k in range(r + 3):
+        circle.attach_to(window)
+        window.render(0.1)
+        circle = rg.Circle(rg.Point(circle.center.x + (2*radius), circle.center.y), radius)
+        circle.fill_color = fill_color
+        circle.outline_color = outline_color
+        circle.outline_thickness = outline_thickness
+        circle.attach_to(window)
+        window.render(0.1)
+        circle = rg.Circle(rg.Point(circle.center.x + (2*radius), circle.center.y), radius)
+        circle.fill_color = fill_color
+        circle.outline_color = outline_color
+        circle.outline_thickness = outline_thickness
+        circle.attach_to(window)
+        window.render(0.1)
+        if k >= r:
+            for j in range(c):
+                circle = rg.Circle(rg.Point(circle.center.x + (2 * radius), circle.center.y), radius)
+                circle.fill_color = fill_color
+                circle.outline_color = outline_color
+                circle.outline_thickness = outline_thickness
+                circle.attach_to(window)
+                window.render(0.1)
+        circle = rg.Circle(rg.Point(starting_x, circle.center.y + (2*radius)), radius)
+        circle.fill_color = fill_color
+        circle.outline_color = outline_color
+        circle.outline_thickness = outline_thickness
 
 
 def run_test_draw_wall_on_right():
@@ -122,9 +154,23 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # -------------------------------------------------------------------------
+    width = -abs(rectangle.corner_2.x - rectangle.corner_1.x)
+    height = abs(rectangle.corner_2.y - rectangle.corner_1.y)
+    original_x1 = rectangle.corner_1.x
+    original_x2 = rectangle.corner_2.x
+    for k in range(n):
+        for j in range(k + 1):
+            rectangle.attach_to(window)
+            window.render(0.1)
+            rectangle = rg.Rectangle(rg.Point(rectangle.corner_1.x + width, rectangle.corner_1.y),
+                                     rg.Point(rectangle.corner_2.x + width, rectangle.corner_2.y))
+        rectangle.corner_1.x = original_x1
+        rectangle.corner_2.x = original_x2
+        rectangle.corner_1.y = rectangle.corner_1.y + height
+        rectangle.corner_2.y = rectangle.corner_2.y + height
 
 
 # -----------------------------------------------------------------------------
